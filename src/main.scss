@@ -1,0 +1,13 @@
+@import "common.scss";
+
+.test-block {
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+    background: green;
+}
+
+.test{
+    // background: rgb(51, 110, 162); 
+background: url('./logo.svg');
+}
