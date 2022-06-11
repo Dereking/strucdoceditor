@@ -13,9 +13,9 @@ export default class StructDoc {
     public modified: string;
     public tags: string[];
     public dependencies: string[];
-    public elements: Array<StructDocElement> = [];
+    private root : StructDocElement  ;
 
-    public constructor(id: string) {
+    public constructor(id: string, parentId: string, schemaUrl: string) {
         this.id = id;
         this.name = "";
         this.description = "";
@@ -27,7 +27,12 @@ export default class StructDoc {
         this.modified = "";
         this.tags = [];
         this.dependencies = [];
+        
+        this.root = new StructDocElement("root",parentId,schemaUrl);
+    }
 
+    public AddDocElement(type:string): StructDocElement { 
+       return this.root.AddDocElement(type);
     }
 }
 

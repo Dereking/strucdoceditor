@@ -53,6 +53,7 @@
     "webpack-dev-server": "^4.9.2"
   },
   "dependencies": {
-    "axios": "^0.27.2"
+    "axios": "^0.27.2",
+    "guid-typescript": "^1.0.9"
   }
 }

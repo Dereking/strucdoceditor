@@ -9,3 +9,7 @@
 .struct-doc-element {
   border: 1px solid #ccc;
 }
+
+.hover {
+  border: 1px solid gray;
+}

@@ -9,14 +9,23 @@ export default class StructDocEditor {
 
     private id: string;
     public conf: EditorConfig;
-    private ele: HTMLElement | null = null;
+    private htmlEle: HTMLElement;
 
-    private doc: StructDoc = new StructDoc("root");
+    private doc: StructDoc;
 
     constructor(id: string, conf: EditorConfig | null | undefined) {
         this.id = id;
         this.conf = conf ? conf : new EditorConfig(400, 300);
-        this.init()
+
+        //
+        let ele = this.mount()
+        if (ele == null)
+            throw new Error("can not find element by id:" + id)
+
+        this.htmlEle = ele
+
+        // 初始化文档
+        this.doc = new StructDoc("root", this.id, "");
     }
 
     public getId(): string {
@@ -27,23 +36,23 @@ export default class StructDocEditor {
         this.id = id;
     }
 
-    private init(): void {
+    private mount(): HTMLElement|null {
         // 初始化编辑器
-        this.ele = document.getElementById(this.id)
+        let ele = document.getElementById(this.id)
 
         // this.ele?.className = ""
-        if (this.ele == null)
-            return
-        this.ele.innerHTML = "this is a test editor"
-        this.ele.classList.add('editor');
+        if (ele == null)
+            return null
+        ele.innerHTML = "this is a test editor"
+        ele.classList.add('editor');
 
-        this.ele.addEventListener("click", this.editorClick);
-    }
-
-    private editorClick(e: Event): void {
-        this.doc.AddDocElement()
-    }
-
+        let that =this
+        ele.addEventListener("click", (e: Event) => {
+                console.log("editor click", e,that)
+                this.doc.AddDocElement("p")
+        })
+        return ele
+    } 
     public saveDocument(): string {
 
         // 保存文档
@@ -62,7 +71,7 @@ export default class StructDocEditor {
 
     }
 
-    public AddDocElement(tp: string): StructDocElement {
-        return this.doc.AddDocElement(tp)
+    public AddDocElement(type: string): StructDocElement {
+        return this.doc.AddDocElement(type)
     }
 }
